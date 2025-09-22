@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 300px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      margin: 5px 0;
+    }
+
+    .user {
+      text-align: right;
+      color: blue;
+    }
+
+    .bot {
+      text-align: left;
+      color: green;
+    }
+
+    .input-area {
+      display: flex;
+    }
+
+    input {
+      flex: 1;
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 5px 10px;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type a message" onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+      const userText = input.value.trim();
+
+      if (userText === "") return;
+
+           chatBox.innerHTML += `<div class="message user">${userText}</div>`;
+
+      const botText = getBotResponse(userText);
+      chatBox.innerHTML += `<div class="message bot">${botText}</div>`;
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = "";
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input.includes("hi") || input.includes("hello")) {
+        return "Hello!";
+      } else if (input.includes("how are you")) {
+        return "I'm just a bot, but I'm good!";
+      } else if (input.includes("bye")) {
+        return "Goodbye!";
+      } else {
+        return "I don't understand.";
+      }
+    }
+  </script>
+
+</body>
+</html>
